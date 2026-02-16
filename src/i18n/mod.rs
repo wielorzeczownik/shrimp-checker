@@ -12,6 +12,7 @@ pub struct Text {
 pub use en::TEXT_EN;
 pub use pl::TEXT_PL;
 
+/// Loads localized UI text based on the system locale.
 pub fn load_strings() -> Text {
   let locale = sys_locale::get_locale().unwrap_or_default().to_lowercase();
   if locale.starts_with("pl") {
