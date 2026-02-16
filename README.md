@@ -36,8 +36,8 @@ Example (Windows PowerShell):
 
 Release artifact names follow:
 
-- shrimp-checker-<version>-x86_64-unknown-linux-gnu.tar.gz - Linux (Intel/AMD 64-bit)
-- shrimp-checker-<version>-aarch64-unknown-linux-gnu.tar.gz - Linux (ARM64, e.g. Raspberry Pi 64-bit)
-- shrimp-checker-<version>-x86_64-apple-darwin.tar.gz - macOS on Intel Macs
-- shrimp-checker-<version>-aarch64-apple-darwin.tar.gz - macOS on Apple Silicon (M1/M2/M3)
-- shrimp-checker-<version>-x86_64-pc-windows-msvc.zip - Windows 64-bit (x86_64)
+- `shrimp-checker-<version>-x86_64-unknown-linux-gnu.tar.gz` - Linux (Intel/AMD 64-bit)
+- `shrimp-checker-<version>-aarch64-unknown-linux-gnu.tar.gz` - Linux (ARM64, e.g. Raspberry Pi 64-bit)
+- `shrimp-checker-<version>-x86_64-apple-darwin.tar.gz` - macOS on Intel Macs
+- `shrimp-checker-<version>-aarch64-apple-darwin.tar.gz` - macOS on Apple Silicon (M1/M2/M3)
+- `shrimp-checker-<version>-x86_64-pc-windows-msvc.zip` - Windows 64-bit (x86_64)
