@@ -145,6 +145,7 @@ fn play_yes_music_task() -> Task<Message> {
   )
 }
 
+/// Plays the confirmation sound on the audio thread.
 fn play_yes_music_blocking() {
   let Ok(mut stream) = rodio::OutputStreamBuilder::open_default_stream() else {
     return;
