@@ -1,0 +1,16 @@
+# Build outputs
+/target/
+**/*.rs.bk
+
+# Rust / cargo local files
+/.cargo/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editors / IDEs
+.idea/
+.vscode/
+*.swp
+*.swo

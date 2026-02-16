@@ -1,0 +1,247 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "src/**"
+      - "Cargo.toml"
+      - "Cargo.lock"
+
+concurrency:
+  group: release-main
+  cancel-in-progress: true
+
+jobs:
+  prepare-release:
+    if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      released: ${{ steps.bump.outputs.released }}
+      version: ${{ steps.bump.outputs.version }}
+      tag: ${{ steps.bump.outputs.tag }}
+      commit_changes: ${{ steps.bump.outputs.commit_changes }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Install rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install cargo-edit
+        uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-edit
+
+      - name: Determine next version (git-cliff)
+        id: cliff_bumped
+        uses: orhun/git-cliff-action@v4
+        with:
+          config: cliff.toml
+          args: --bumped-version
+        env:
+          OUTPUT: bumped-version.txt
+          GITHUB_REPO: ${{ github.repository }}
+
+      - name: Bump project version
+        id: bump
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          current_version=$(awk -F'"' '/^version\s*=\s*"/ { print $2; exit }' Cargo.toml)
+          next_tag="${{ steps.cliff_bumped.outputs.content }}"
+          next_tag=$(echo "$next_tag" | tr -d '[:space:]')
+
+          if [[ -z "$next_tag" ]]; then
+            echo "Unable to determine next version from git-cliff"
+            exit 1
+          fi
+
+          if [[ "$next_tag" != v* ]]; then
+            next_tag="v$next_tag"
+          fi
+
+          next_version="${next_tag#v}"
+          current_tag="v$current_version"
+          has_current_tag="false"
+          if git rev-parse -q --verify "refs/tags/${current_tag}" >/dev/null; then
+            has_current_tag="true"
+          fi
+
+          if [[ "$next_version" == "$current_version" ]]; then
+            if [[ "$has_current_tag" == "false" ]]; then
+              echo "No bump from git-cliff, but no current tag exists. Creating initial release for ${current_tag}."
+              echo "released=true" >> "$GITHUB_OUTPUT"
+              echo "version=$current_version" >> "$GITHUB_OUTPUT"
+              echo "tag=$current_tag" >> "$GITHUB_OUTPUT"
+              echo "commit_changes=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            commits_since_tag=$(git rev-list --count "${current_tag}..HEAD")
+            if [[ "$commits_since_tag" -eq 0 ]]; then
+              echo "No new commits since ${current_tag}. Nothing to release."
+              echo "released=false" >> "$GITHUB_OUTPUT"
+              echo "version=$current_version" >> "$GITHUB_OUTPUT"
+              echo "tag=$current_tag" >> "$GITHUB_OUTPUT"
+              echo "commit_changes=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            IFS='.' read -r major minor patch <<< "$current_version"
+            next_version="${major}.${minor}.$((patch + 1))"
+            next_tag="v${next_version}"
+            echo "No semantic bump from git-cliff; fallback to patch bump -> ${next_tag}"
+          fi
+
+          cargo set-version "$next_version"
+
+          cargo check
+
+          echo "released=true" >> "$GITHUB_OUTPUT"
+          echo "version=$next_version" >> "$GITHUB_OUTPUT"
+          echo "tag=$next_tag" >> "$GITHUB_OUTPUT"
+          echo "commit_changes=true" >> "$GITHUB_OUTPUT"
+
+      - name: Generate release notes (git-cliff)
+        if: ${{ steps.bump.outputs.released == 'true' }}
+        uses: orhun/git-cliff-action@v4
+        with:
+          config: cliff.toml
+          args: --unreleased --tag ${{ steps.bump.outputs.tag }}
+        env:
+          OUTPUT: release-notes.md
+          GITHUB_REPO: ${{ github.repository }}
+
+      - name: Commit, tag, and push
+        if: ${{ steps.bump.outputs.released == 'true' && steps.bump.outputs.commit_changes == 'true' }}
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: "Cargo.toml Cargo.lock"
+          default_author: github_actions
+          message: "chore(release): ${{ steps.bump.outputs.tag }} [skip ci]"
+          tag: "${{ steps.bump.outputs.tag }}"
+          push: true
+
+      - name: Push tag only
+        if: ${{ steps.bump.outputs.released == 'true' && steps.bump.outputs.commit_changes == 'false' }}
+        run: |
+          git tag "${{ steps.bump.outputs.tag }}"
+          git push origin "${{ steps.bump.outputs.tag }}"
+
+      - name: Upload release notes
+        if: ${{ steps.bump.outputs.released == 'true' }}
+        uses: actions/upload-artifact@v6
+        with:
+          name: release-notes
+          path: release-notes.md
+
+  build-artifacts:
+    needs: prepare-release
+    if: ${{ needs.prepare-release.outputs.released == 'true' }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Build GNU Linux binaries on 22.04 so they stay compatible with older glibc (2.35+).
+          - os: ubuntu-22.04
+            target: x86_64-unknown-linux-gnu
+            binary: shrimp-checker
+            archive: tar.gz
+          - os: ubuntu-22.04
+            target: aarch64-unknown-linux-gnu
+            binary: shrimp-checker
+            archive: tar.gz
+          - os: macos-15-intel
+            target: x86_64-apple-darwin
+            binary: shrimp-checker
+            archive: tar.gz
+          - os: macos-15
+            target: aarch64-apple-darwin
+            binary: shrimp-checker
+            archive: tar.gz
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            binary: shrimp-checker.exe
+            archive: zip
+    steps:
+      - name: Checkout tag
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ needs.prepare-release.outputs.tag }}
+
+      - name: Install rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: Install Linux ARM64 linker
+        if: ${{ matrix.target == 'aarch64-unknown-linux-gnu' }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-aarch64-linux-gnu
+
+      - name: Build binary
+        env:
+          CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER: aarch64-linux-gnu-gcc
+        run: cargo build --release --target ${{ matrix.target }}
+
+      - name: Package (tar.gz)
+        if: ${{ matrix.archive == 'tar.gz' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          asset="shrimp-checker-${{ needs.prepare-release.outputs.version }}-${{ matrix.target }}.tar.gz"
+          tar -C "target/${{ matrix.target }}/release" -czf "dist/${asset}" "${{ matrix.binary }}"
+
+      - name: Package (zip)
+        if: ${{ matrix.archive == 'zip' }}
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force dist | Out-Null
+          $asset = "shrimp-checker-${{ needs.prepare-release.outputs.version }}-${{ matrix.target }}.zip"
+          Compress-Archive -Path "target/${{ matrix.target }}/release/${{ matrix.binary }}" -DestinationPath "dist/$asset"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: binaries-${{ matrix.target }}
+          path: dist/*
+
+  publish-release:
+    needs:
+      - prepare-release
+      - build-artifacts
+    if: ${{ needs.prepare-release.outputs.released == 'true' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download binary artifacts
+        uses: actions/download-artifact@v7
+        with:
+          path: dist
+          pattern: binaries-*
+          merge-multiple: true
+
+      - name: Download release notes
+        uses: actions/download-artifact@v7
+        with:
+          name: release-notes
+          path: .
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ needs.prepare-release.outputs.tag }}
+          name: ${{ needs.prepare-release.outputs.tag }}
+          body_path: release-notes.md
+          files: dist/*

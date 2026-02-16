@@ -1,0 +1,16 @@
+[package]
+name = "krewetka-iced"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+iced = { version = "0.14.0", features = ["image"] }
+rodio = "0.21.1"
+sys-locale = "0.3.2"
+
+[profile.release]
+opt-level = "s"
+lto = "thin"
+codegen-units = 1
+strip = "symbols"
+panic = "abort"
