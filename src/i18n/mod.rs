@@ -1,6 +1,7 @@
 mod en;
 mod pl;
 
+/// Localized UI strings.
 #[derive(Debug, Clone, Copy)]
 pub struct Text {
   pub window_title: &'static str,
