@@ -147,17 +147,17 @@ fn play_yes_music_task() -> Task<Message> {
 
 /// Plays the confirmation sound on the audio thread.
 fn play_yes_music_blocking() {
-  let Ok(mut stream) = rodio::OutputStreamBuilder::open_default_stream() else {
+  let Ok(mut sink_handle) = rodio::DeviceSinkBuilder::open_default_sink() else {
     return;
   };
-  stream.log_on_drop(false);
-  let sink = rodio::Sink::connect_new(stream.mixer());
+  sink_handle.log_on_drop(false);
+  let player = rodio::Player::connect_new(sink_handle.mixer());
 
   let cursor = std::io::Cursor::new(SOUND_BYTES);
   let Ok(source) = rodio::Decoder::new(cursor) else {
     return;
   };
 
-  sink.append(source);
-  sink.sleep_until_end();
+  player.append(source);
+  player.sleep_until_end();
 }
