@@ -5,7 +5,7 @@ edition = "2021"
 
 [dependencies]
 iced = { version = "0.14.0", features = ["image"] }
-rodio = "0.21.1"
+rodio = "0.22.0"
 sys-locale = "0.3.2"
 
 [profile.release]
