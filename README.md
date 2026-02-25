@@ -1,8 +1,11 @@
 <h1 align="center">shrimp-checker</h1>
 
 <p align="center">
+  <a href="https://github.com/wielorzeczownik/shrimp-checker/actions/workflows/release.yml"><img src="https://img.shields.io/github/actions/workflow/status/wielorzeczownik/shrimp-checker/release.yml?branch=main&style=flat-square" alt="release"/></a>
   <a href="https://github.com/wielorzeczownik/shrimp-checker/releases/latest"><img src="https://img.shields.io/github/v/release/wielorzeczownik/shrimp-checker?style=flat-square" alt="Latest Release"/></a>
   <a href="https://github.com/wielorzeczownik/shrimp-checker/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-2ea043?style=flat-square" alt="License: MIT"/></a>
+  <br/>
+  <img src="https://img.shields.io/badge/Rust-000000?logo=rust&logoColor=white&style=flat-square" alt="Rust"/>
 </p>
 
 <p align="center">
