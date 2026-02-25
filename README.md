@@ -1,33 +1,28 @@
 <h1 align="center">shrimp-checker</h1>
 
 <p align="center">
-  <a href="https://github.com/wielorzeczownik/shrimp-checker/actions/workflows/release.yml">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/github/actions/workflow/status/wielorzeczownik/shrimp-checker/release.yml?branch=main&style=flat-square&labelColor=2d333b&color=3fb950"/>
-      <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/github/actions/workflow/status/wielorzeczownik/shrimp-checker/release.yml?branch=main&style=flat-square&color=2ea043"/>
-      <img src="https://img.shields.io/github/actions/workflow/status/wielorzeczownik/shrimp-checker/release.yml?branch=main&style=flat-square&labelColor=2d333b&color=3fb950" alt="release"/>
-    </picture>
-  </a>
-  <a href="https://github.com/wielorzeczownik/shrimp-checker/releases/latest">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/github/v/release/wielorzeczownik/shrimp-checker?style=flat-square&labelColor=2d333b&color=3fb950"/>
-      <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/github/v/release/wielorzeczownik/shrimp-checker?style=flat-square&color=2ea043"/>
-      <img src="https://img.shields.io/github/v/release/wielorzeczownik/shrimp-checker?style=flat-square&labelColor=2d333b&color=3fb950" alt="Latest Release"/>
-    </picture>
-  </a>
-  <a href="https://github.com/wielorzeczownik/shrimp-checker/blob/main/LICENSE">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/License-MIT-3fb950?style=flat-square&labelColor=2d333b"/>
-      <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/badge/License-MIT-2ea043?style=flat-square"/>
-      <img src="https://img.shields.io/badge/License-MIT-3fb950?style=flat-square&labelColor=2d333b" alt="License: MIT"/>
-    </picture>
-  </a>
+  <a href="https://github.com/wielorzeczownik/shrimp-checker/actions/workflows/release.yml"><picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/github/actions/workflow/status/wielorzeczownik/shrimp-checker/release.yml?branch=main&style=flat-square&labelColor=2d333b&color=3fb950"/>
+    <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/github/actions/workflow/status/wielorzeczownik/shrimp-checker/release.yml?branch=main&style=flat-square&color=2ea043"/>
+    <img src="https://img.shields.io/github/actions/workflow/status/wielorzeczownik/shrimp-checker/release.yml?branch=main&style=flat-square&labelColor=2d333b&color=3fb950" alt="release"/>
+  </picture></a><!--
+  --><a href="https://github.com/wielorzeczownik/shrimp-checker/releases/latest"><picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/github/v/release/wielorzeczownik/shrimp-checker?style=flat-square&labelColor=2d333b&color=3fb950"/>
+    <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/github/v/release/wielorzeczownik/shrimp-checker?style=flat-square&color=2ea043"/>
+    <img src="https://img.shields.io/github/v/release/wielorzeczownik/shrimp-checker?style=flat-square&labelColor=2d333b&color=3fb950" alt="Latest Release"/>
+  </picture></a><!--
+  --><a href="https://github.com/wielorzeczownik/shrimp-checker/blob/main/LICENSE"><picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/License-MIT-3fb950?style=flat-square&labelColor=2d333b"/>
+    <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/badge/License-MIT-2ea043?style=flat-square"/>
+    <img src="https://img.shields.io/badge/License-MIT-3fb950?style=flat-square&labelColor=2d333b" alt="License: MIT"/>
+  </picture></a>
   <br/>
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/Platform-Linux%20%7C%20macOS%20%7C%20Windows-3fb950?style=flat-square&labelColor=2d333b"/>
     <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/badge/Platform-Linux%20%7C%20macOS%20%7C%20Windows-2ea043?style=flat-square"/>
     <img src="https://img.shields.io/badge/Platform-Linux%20%7C%20macOS%20%7C%20Windows-3fb950?style=flat-square&labelColor=2d333b" alt="Platform"/>
   </picture>
+  <br/>
   <img src="https://img.shields.io/badge/Rust-B7410E?style=flat-square&logo=rust&logoColor=white" alt="Rust"/>
   <img src="https://img.shields.io/badge/Iced-4D9DE0?style=flat-square&logo=iced&logoColor=white" alt="Iced"/>
 </p>
