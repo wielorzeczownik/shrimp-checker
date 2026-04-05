@@ -7,7 +7,7 @@ description = "A lightweight desktop GUI app that checks whether you are a shrim
 license = "MIT"
 repository = "https://github.com/wielorzeczownik/shrimp-checker"
 readme = "README.md"
-keywords = ["shrimp", "meme", "gui", "desktop", "iced"]
+keywords = ["shrimp", "meme", "gui", "desktop", "iced", "sigma"]
 categories = ["gui"]
 
 [dependencies]
