@@ -1,5 +1,5 @@
 use iced::alignment::{Horizontal, Vertical};
-use iced::widget::{button, column, container, image, row, text, Column};
+use iced::widget::{Column, button, column, container, image, row, text};
 use iced::window;
 use iced::{ContentFit, Element, Length, Subscription, Task};
 
@@ -7,7 +7,7 @@ use crate::constants::{
   BUTTON_SPACING, CAT_BYTES, CONTENT_PADDING, CONTENT_SPACING, SHRIMP_BYTES, SHRIMP_SIZE,
   SOUND_BYTES, TITLE_SIZE,
 };
-use crate::i18n::{load_strings, Text};
+use crate::i18n::{Text, load_strings};
 
 /// Messages produced by UI actions and window events.
 #[derive(Debug, Clone)]

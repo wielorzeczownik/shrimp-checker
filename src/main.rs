@@ -4,7 +4,7 @@ mod app;
 mod constants;
 mod i18n;
 
-use crate::app::{subscription, update, view, window_title, App};
+use crate::app::{App, subscription, update, view, window_title};
 
 fn main() -> iced::Result {
   iced::application(App::default, update, view)
