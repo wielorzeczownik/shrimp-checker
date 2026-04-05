@@ -3,6 +3,12 @@ name = "shrimp-checker"
 version = "0.1.4"
 edition = "2024"
 rust-version = "1.88"
+description = "A lightweight desktop GUI app that checks whether you are a shrimp"
+license = "MIT"
+repository = "https://github.com/wielorzeczownik/shrimp-checker"
+readme = "README.md"
+keywords = ["shrimp", "meme", "gui", "desktop", "iced"]
+categories = ["gui"]
 
 [dependencies]
 iced = { version = "0.14.0", features = ["image"] }
