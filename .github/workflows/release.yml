@@ -217,6 +217,10 @@ jobs:
         with:
           key: ${{ matrix.target }}
 
+      - name: Install Zig
+        if: ${{ matrix.build_cmd == 'cargo zigbuild' }}
+        run: pip install ziglang
+
       - name: Install cargo-zigbuild
         if: ${{ matrix.build_cmd == 'cargo zigbuild' }}
         uses: taiki-e/install-action@v2
