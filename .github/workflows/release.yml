@@ -191,16 +191,6 @@ jobs:
             target: aarch64-pc-windows-msvc
             binary: shrimp-checker.exe
             archive: zip
-          - os: ubuntu-22.04
-            target: x86_64-unknown-linux-musl
-            binary: shrimp-checker
-            archive: tar.gz
-            build_cmd: cargo zigbuild
-          - os: ubuntu-22.04
-            target: aarch64-unknown-linux-musl
-            binary: shrimp-checker
-            archive: tar.gz
-            build_cmd: cargo zigbuild
     steps:
       - name: Checkout tag
         uses: actions/checkout@v6
@@ -216,16 +206,6 @@ jobs:
         uses: Swatinem/rust-cache@v2
         with:
           key: ${{ matrix.target }}
-
-      - name: Install Zig
-        if: ${{ matrix.build_cmd == 'cargo zigbuild' }}
-        run: pip install ziglang
-
-      - name: Install cargo-zigbuild
-        if: ${{ matrix.build_cmd == 'cargo zigbuild' }}
-        uses: taiki-e/install-action@v2
-        with:
-          tool: cargo-zigbuild
 
       - name: Install Linux ARM64 linker
         if: ${{ matrix.target == 'aarch64-unknown-linux-gnu' }}
@@ -265,7 +245,7 @@ jobs:
       - name: Build binary
         env:
           CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER: aarch64-linux-gnu-gcc
-        run: ${{ matrix.build_cmd || 'cargo build' }} --release --target ${{ matrix.target }}
+        run: cargo build --release --target ${{ matrix.target }}
 
       - name: Package (tar.gz)
         if: ${{ matrix.archive == 'tar.gz' }}
