@@ -11,18 +11,20 @@
   <img src="https://raw.githubusercontent.com/wielorzeczownik/shrimp-checker/main/assets/logo.png" alt="shrimp-checker logo" width="200" />
 </p>
 
-I saw something like this on Twitter but couldn't find the original meme, so I built this app myself.
+<p align="center">🇬🇧 English | 🇵🇱 <a href="README.pl.md">Polski</a></p>
+
+A lightweight desktop GUI app that checks whether you are a shrimp — built with Rust and [Iced](https://github.com/iced-rs/iced). Inspired by a meme app I saw on Twitter that I couldn't find again, so I built my own version.
 
 > Shrimp emoji source: <a href="https://emojipedia.org/joypixels/6.0/shrimp">JoyPixels 6.0</a>.
 
 ## Run from GitHub Release binaries
 
 Each release includes prebuilt archives for Linux, macOS, and Windows.
-Latest release: [GitHub Releases](https://github.com/wielorzeczownik/ahe-ics/releases/latest)
+Latest release: [GitHub Releases](https://github.com/wielorzeczownik/shrimp-checker/releases/latest)
 
-1. Download the asset for your platform from the latest release page.
+1. Download the archive for your platform from the latest release page.
 2. Extract it.
-3. Start the binary.
+3. Run the binary.
 
 Example (Linux/macOS):
 
@@ -36,10 +38,35 @@ Example (Windows PowerShell):
 .\shrimp-checker.exe
 ```
 
-Release artifact names follow:
+Download the latest release asset for your platform:
 
-- `shrimp-checker-<version>-x86_64-unknown-linux-gnu.tar.gz` - Linux (Intel/AMD 64-bit)
-- `shrimp-checker-<version>-aarch64-unknown-linux-gnu.tar.gz` - Linux (ARM64, e.g. Raspberry Pi 64-bit)
-- `shrimp-checker-<version>-x86_64-apple-darwin.tar.gz` - macOS on Intel Macs
-- `shrimp-checker-<version>-aarch64-apple-darwin.tar.gz` - macOS on Apple Silicon (M1/M2/M3)
-- `shrimp-checker-<version>-x86_64-pc-windows-msvc.zip` - Windows 64-bit (x86_64)
+**Linux (glibc — requires glibc 2.35+):**
+- [shrimp-checker-x86_64-unknown-linux-gnu.tar.gz](https://github.com/wielorzeczownik/shrimp-checker/releases/latest/download/shrimp-checker-x86_64-unknown-linux-gnu.tar.gz) – Linux (Intel/AMD 64-bit)
+- [shrimp-checker-aarch64-unknown-linux-gnu.tar.gz](https://github.com/wielorzeczownik/shrimp-checker/releases/latest/download/shrimp-checker-aarch64-unknown-linux-gnu.tar.gz) – Linux (ARM64, e.g. Raspberry Pi 64-bit)
+
+**Linux (musl — fully static, no glibc dependency):**
+- [shrimp-checker-x86_64-unknown-linux-musl.tar.gz](https://github.com/wielorzeczownik/shrimp-checker/releases/latest/download/shrimp-checker-x86_64-unknown-linux-musl.tar.gz) – Linux (Intel/AMD 64-bit)
+- [shrimp-checker-aarch64-unknown-linux-musl.tar.gz](https://github.com/wielorzeczownik/shrimp-checker/releases/latest/download/shrimp-checker-aarch64-unknown-linux-musl.tar.gz) – Linux (ARM64)
+
+**macOS:**
+- [shrimp-checker-x86_64-apple-darwin.tar.gz](https://github.com/wielorzeczownik/shrimp-checker/releases/latest/download/shrimp-checker-x86_64-apple-darwin.tar.gz) – macOS on Intel Macs
+- [shrimp-checker-aarch64-apple-darwin.tar.gz](https://github.com/wielorzeczownik/shrimp-checker/releases/latest/download/shrimp-checker-aarch64-apple-darwin.tar.gz) – macOS on Apple Silicon (M1/M2/M3/M4)
+
+**Windows:**
+- [shrimp-checker-x86_64-pc-windows-msvc.zip](https://github.com/wielorzeczownik/shrimp-checker/releases/latest/download/shrimp-checker-x86_64-pc-windows-msvc.zip) – Windows 64-bit (x86_64)
+- [shrimp-checker-aarch64-pc-windows-msvc.zip](https://github.com/wielorzeczownik/shrimp-checker/releases/latest/download/shrimp-checker-aarch64-pc-windows-msvc.zip) – Windows ARM64
+- [shrimp-checker-i686-pc-windows-msvc.zip](https://github.com/wielorzeczownik/shrimp-checker/releases/latest/download/shrimp-checker-i686-pc-windows-msvc.zip) – Windows 32-bit (x86)
+
+## Build from source
+
+Requires [Rust](https://rustup.rs/) stable and, on Linux, the ALSA development headers:
+
+```bash
+# Linux only
+sudo apt-get install -y libasound2-dev pkg-config
+```
+
+```bash
+cargo build --release
+./target/release/shrimp-checker
+```
