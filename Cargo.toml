@@ -1,6 +1,6 @@
 [package]
 name = "shrimp-checker"
-version = "0.1.5"
+version = "0.1.6"
 edition = "2024"
 rust-version = "1.88"
 description = "A lightweight desktop GUI app that checks whether you are a shrimp"
