@@ -13,7 +13,7 @@
 
 <p align="center">🇬🇧 English | 🇵🇱 <a href="README.pl.md">Polski</a></p>
 
-A lightweight desktop GUI app that checks whether you are a shrimp — built with Rust and [Iced](https://github.com/iced-rs/iced). Inspired by a meme app I saw on Twitter that I couldn't find again, so I built my own version.
+A lightweight desktop GUI app that checks whether you are a shrimp – built with Rust and [Iced](https://github.com/iced-rs/iced). Inspired by a meme app I saw on Twitter that I couldn't find again, so I built my own version.
 
 > Shrimp emoji source: <a href="https://emojipedia.org/joypixels/6.0/shrimp">JoyPixels 6.0</a>.
 
@@ -40,15 +40,18 @@ Example (Windows PowerShell):
 
 Download the latest release asset for your platform:
 
-**Linux (glibc — requires glibc 2.35+):**
+**Linux (glibc – requires glibc 2.35+):**
+
 - [shrimp-checker-x86_64-unknown-linux-gnu.tar.gz](https://github.com/wielorzeczownik/shrimp-checker/releases/latest/download/shrimp-checker-x86_64-unknown-linux-gnu.tar.gz) – Linux (Intel/AMD 64-bit)
 - [shrimp-checker-aarch64-unknown-linux-gnu.tar.gz](https://github.com/wielorzeczownik/shrimp-checker/releases/latest/download/shrimp-checker-aarch64-unknown-linux-gnu.tar.gz) – Linux (ARM64, e.g. Raspberry Pi 64-bit)
 
 **macOS:**
+
 - [shrimp-checker-x86_64-apple-darwin.tar.gz](https://github.com/wielorzeczownik/shrimp-checker/releases/latest/download/shrimp-checker-x86_64-apple-darwin.tar.gz) – macOS on Intel Macs
 - [shrimp-checker-aarch64-apple-darwin.tar.gz](https://github.com/wielorzeczownik/shrimp-checker/releases/latest/download/shrimp-checker-aarch64-apple-darwin.tar.gz) – macOS on Apple Silicon (M1/M2/M3/M4)
 
 **Windows:**
+
 - [shrimp-checker-x86_64-pc-windows-msvc.zip](https://github.com/wielorzeczownik/shrimp-checker/releases/latest/download/shrimp-checker-x86_64-pc-windows-msvc.zip) – Windows 64-bit (x86_64)
 - [shrimp-checker-aarch64-pc-windows-msvc.zip](https://github.com/wielorzeczownik/shrimp-checker/releases/latest/download/shrimp-checker-aarch64-pc-windows-msvc.zip) – Windows ARM64
 - [shrimp-checker-i686-pc-windows-msvc.zip](https://github.com/wielorzeczownik/shrimp-checker/releases/latest/download/shrimp-checker-i686-pc-windows-msvc.zip) – Windows 32-bit (x86)
