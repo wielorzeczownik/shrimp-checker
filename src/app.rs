@@ -3,11 +3,17 @@ use iced::widget::{Column, button, column, container, image, row, text};
 use iced::window;
 use iced::{ContentFit, Element, Length, Subscription, Task};
 
-use crate::constants::{
-  BUTTON_SPACING, CAT_BYTES, CONTENT_PADDING, CONTENT_SPACING, SHRIMP_BYTES, SHRIMP_SIZE,
-  SOUND_BYTES, TITLE_SIZE,
-};
 use crate::i18n::{Text, load_strings};
+
+const TITLE_SIZE: u32 = 42;
+const BUTTON_SPACING: u32 = 16;
+const CONTENT_SPACING: u32 = 22;
+const CONTENT_PADDING: u16 = 28;
+const SHRIMP_SIZE: f32 = 200.0;
+
+const CAT_BYTES: &[u8] = include_bytes!("../assets/cat.webp");
+const SHRIMP_BYTES: &[u8] = include_bytes!("../assets/logo.png");
+const SOUND_BYTES: &[u8] = include_bytes!("../assets/sound.mp3");
 
 /// Messages produced by UI actions and window events.
 #[derive(Debug, Clone, Copy)]

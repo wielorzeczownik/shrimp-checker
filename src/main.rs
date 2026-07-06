@@ -1,7 +1,6 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 mod app;
-mod constants;
 mod i18n;
 
 use crate::app::{App, subscription, update, view, window_title};
