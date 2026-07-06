@@ -10,7 +10,7 @@ use crate::constants::{
 use crate::i18n::{Text, load_strings};
 
 /// Messages produced by UI actions and window events.
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Copy)]
 pub(crate) enum Message {
   Yes,
   No,
@@ -141,7 +141,7 @@ fn play_yes_music_task() -> Task<Message> {
     async {
       play_yes_music_blocking();
     },
-    |_| Message::RequestClose,
+    |()| Message::RequestClose,
   )
 }
 
